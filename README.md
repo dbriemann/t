@@ -23,13 +23,13 @@ t oops 1s "https://google.com"
 This will result in:
 ```
 Saved timers:
-+----+--------+-----------+-------------------------------------+------------+
-| ID |  NAME  | COUNTDOWN |               TARGET                | TIMES USED |
-+----+--------+-----------+-------------------------------------+------------+
-|  1 | sencha | 1m20s     | /home/dlb/.config/t/pics/teapot.jpg |          0 |
-|  2 | pizzo  | 10m0s     | /home/dlb/.config/t/pics/pizza.jpg  |          0 |
-|  3 | oops   | 1s        | https://google.com                  |          0 |
-+----+--------+-----------+-------------------------------------+------------+
++----+--------+-----------+---------------------------------+------+
+| ID |  NAME  | COUNTDOWN |               TARGET            | USED |
++----+--------+-----------+---------------------------------+------+
+|  1 | sencha | 1m20s     | /home/dlb/.con..ics/teapot.jpg  |    0 |
+|  2 | pizzo  | 10m0s     | /home/dlb/.con..pics/pizza.jpg  |    0 |
+|  3 | oops   | 1s        | https://google.com              |    0 |
++----+--------+-----------+---------------------------------+------+
 
 ```
 
