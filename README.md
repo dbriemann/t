@@ -17,7 +17,7 @@ Run the following commands one after the other:
 ```
 t sencha 1m20s ~/.config/t/pics/teapot.jpg
 t pizzo 10m "https://www.google.com/search?q=pizza&tbm=isch"
-t oops 1s https://google.com
+t oops 1s "https://google.com"
 ```
 
 This will result in:
