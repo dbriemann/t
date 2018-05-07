@@ -152,6 +152,7 @@ func main() {
 				if len(args) == 2 && args[1] == "del" {
 					fmt.Printf("deleting timer '%s'\n", args[0])
 					db.delete(args[0])
+					list()
 					os.Exit(0)
 				} else if len(args) > 1 && len(args) < 3 {
 					fmt.Println("unkown input")
