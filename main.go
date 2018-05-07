@@ -26,14 +26,22 @@ var (
 func help() {
 	fmt.Println("")
 	fmt.Println("USAGE:")
-	fmt.Println("  [name] [duration] [target] <-- sets a timer (overwrites existing)")
+	fmt.Println(" Set a timer (overwrites existing)")
+	fmt.Println(" ---------------------------------")
+	fmt.Println("  [name] [duration] [target]")
 	fmt.Println("    [name]: no spaces")
 	fmt.Println("    [duration]: countdown time, format '1h23m1s'")
 	fmt.Println("    [target]: file or link to be opened when timer triggers, absolute path")
 	fmt.Println("")
-	fmt.Println("  [name] = [newname] <-- assigns a new name to a timer")
+	fmt.Println(" Rename a timer")
+	fmt.Println(" --------------")
+	fmt.Println("  [name] = [newname]")
 	fmt.Println("")
-	fmt.Println("  [name] OR '/id' <-- starts timer with name <name> or /number shortcut")
+	fmt.Println(" Start a timer")
+	fmt.Println(" -------------")
+	fmt.Println("  [name] OR /[id]")
+	fmt.Println("    [id]: number in table")
+	fmt.Println("")
 }
 
 func list() {
