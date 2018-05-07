@@ -48,7 +48,7 @@ func list() {
 	fmt.Println("")
 	fmt.Println("Saved timers:")
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Id", "Name", "Countdown", "Target", "Times Used"})
+	table.SetHeader([]string{"Id", "Name", "Countdown", "Target", "Used"})
 
 	for i, a := range db.Timers {
 		row := make([]string, 5)
@@ -56,7 +56,12 @@ func list() {
 
 		row[1] = a.Name
 		row[2] = a.Countdown.String()
-		row[3] = a.Target
+		tlen := len(a.Target)
+		if tlen > 30 {
+			row[3] = a.Target[:14] + ".." + a.Target[tlen-14:]
+		} else {
+			row[3] = a.Target
+		}
 		row[4] = strconv.Itoa(int(a.Used))
 
 		table.Append(row)

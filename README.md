@@ -16,7 +16,7 @@ Run the following commands one after the other:
 
 ```
 t sencha 1m20s ~/.config/t/pics/teapot.jpg
-t pizzo 10m ~/.config/t/pics/pizza.jpg
+t pizzo 10m "https://www.google.com/search?q=pizza&tbm=isch"
 t oops 1s https://google.com
 ```
 
@@ -33,7 +33,7 @@ Saved timers:
 
 ```
 
-Note that you have to specify your own files (pics, sounds..), t doesn't include any. You can also specify links. All paths and links must be absolute.
+Note that you have to specify your own files (pics, sounds..), `t` doesn't include any. You can also specify links. All paths and links must be absolute. And remember to put your links into quotes so your shell doesn't do crazy stuff.
 
 Now we made some mistakes. Let's correct them. Renaming pizzo to pizza is easy. Just do:
 
