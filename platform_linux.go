@@ -1,3 +1,5 @@
 package main
 
-const ()
+const (
+	platformOpenCmd = "xdg-open"
+)
