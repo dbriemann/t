@@ -190,21 +190,7 @@ func main() {
 				db.save()
 				list()
 			} else {
-				if len(args) == 1 {
-					// Test if argument is a duration.
-					dur, err := time.ParseDuration(args[0])
-					if err != nil {
-						fmt.Printf("error parsing duration: %s\n", err.Error())
-						os.Exit(1)
-					}
-					t := Timer{
-						Countdown: dur,
-						Name:      "custom",
-						Target:    fetchDailyPhoto(),
-					}
-					t.run()
-					os.Exit(0)
-				} else if len(args) == 2 && args[1] == "del" {
+				if len(args) == 2 && args[1] == "del" {
 					fmt.Printf("deleting timer '%s'\n", args[0])
 					db.delete(args[0])
 					list()
@@ -213,6 +199,19 @@ func main() {
 					fmt.Println("unkown input")
 					os.Exit(1)
 				}
+
+				// Test if argument is a duration.
+				dur, err := time.ParseDuration(args[0])
+				if err == nil {
+					t := Timer{
+						Countdown: dur,
+						Name:      "custom",
+						Target:    fetchDailyPhoto(),
+					}
+					t.run()
+					os.Exit(0)
+				}
+
 				// Search if timer with given name exists and if so run it.
 				ran := false
 				for i := 0; i < len(db.Timers); i++ {
