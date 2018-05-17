@@ -47,4 +47,16 @@ And now let's delete that timer that nobody really wanted:
 t oops del
 ```
 
-That's it. Have fun timing :)
+### Spontaneous Timing
+
+Sometimes you just need to time something right now and don't want to save a timer first. Here you go:
+
+```
+t 6m21s
+```
+
+runs a time for 6 minutes and 21 seconds and then opens the daily bing photo in your web browser.
+
+## What else can it do?
+
+Nothing, sorry :)

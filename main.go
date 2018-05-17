@@ -10,8 +10,12 @@ import (
 	"time"
 
 	"github.com/olekukonko/tablewriter"
+	"github.com/parnurzeal/gorequest"
 	"github.com/shibukawa/configdir"
 )
+
+// TODO - restructure command switch case code to be prettier.
+// TODO - use daily photo if no target is provided.
 
 const (
 	configFile = "db.json"
@@ -34,9 +38,13 @@ func help() {
 	fmt.Println(" --------------")
 	fmt.Println("  t [name] = [newname]")
 	fmt.Println("")
-	fmt.Println(" Start a timer")
-	fmt.Println(" -------------")
+	fmt.Println(" Start a named timer")
+	fmt.Println(" -------------------")
 	fmt.Println("  t [name] \n  t /[id]")
+	fmt.Println("")
+	fmt.Println(" Start a custom timer")
+	fmt.Println(" --------------------")
+	fmt.Println("  t [duration]")
 	fmt.Println("")
 	fmt.Println(" Parameters")
 	fmt.Println(" ----------")
@@ -72,6 +80,23 @@ func list() {
 
 	table.Render() // Send output
 	fmt.Println("")
+}
+
+func fetchDailyPhoto() (url string) {
+	url = "https://www.google.com/search?q=something+went+wrong&oq=something+went+wrong"
+	type entry struct {
+		// Omit everything but the URL
+		URL string `json:"url"`
+	}
+	type response struct {
+		Entries []entry `json:"images"`
+	}
+	reply := response{}
+	_, _, errs := gorequest.New().Get("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1").EndStruct(&reply)
+	if errs == nil {
+		url = "https://bing.com" + reply.Entries[0].URL
+	}
+	return
 }
 
 func platformOpen(target string) error {
@@ -164,8 +189,22 @@ func main() {
 				db.setTimer(name, target, duration)
 				db.save()
 				list()
-			} else { // If not a timer is run.
-				if len(args) == 2 && args[1] == "del" {
+			} else {
+				if len(args) == 1 {
+					// Test if argument is a duration.
+					dur, err := time.ParseDuration(args[0])
+					if err != nil {
+						fmt.Printf("error parsing duration: %s\n", err.Error())
+						os.Exit(1)
+					}
+					t := Timer{
+						Countdown: dur,
+						Name:      "custom",
+						Target:    fetchDailyPhoto(),
+					}
+					t.run()
+					os.Exit(0)
+				} else if len(args) == 2 && args[1] == "del" {
 					fmt.Printf("deleting timer '%s'\n", args[0])
 					db.delete(args[0])
 					list()
