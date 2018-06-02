@@ -60,3 +60,12 @@ runs a time for 6 minutes and 21 seconds and then opens the daily bing photo in 
 ## What else can it do?
 
 Nothing, sorry :)
+
+## Future
+
+This will be a toolbox. List of possible features:
+
+- timers (done)
+- notes
+- calendar
+- weather
