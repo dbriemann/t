@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"net/url"
 	"os"
 	"os/exec"
@@ -26,6 +27,10 @@ var (
 	config    *configdir.Config
 	db        = DB{}
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
 
 func help() {
 	fmt.Println("")
@@ -92,9 +97,10 @@ func fetchDailyPhoto() (url string) {
 		Entries []entry `json:"images"`
 	}
 	reply := response{}
-	_, _, errs := gorequest.New().Get("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1").EndStruct(&reply)
+	_, _, errs := gorequest.New().Get("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8").EndStruct(&reply)
 	if errs == nil {
-		url = "https://bing.com" + reply.Entries[0].URL
+		r := rand.Intn(len(reply.Entries))
+		url = "https://bing.com" + reply.Entries[r].URL
 	}
 	return
 }
