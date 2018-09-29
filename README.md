@@ -52,10 +52,10 @@ t oops del
 Sometimes you just need to time something right now and don't want to save a timer first. Here you go:
 
 ```
-t 6m21s
+t 6m23s
 ```
 
-runs a time for 6 minutes and 21 seconds and then opens the daily bing photo in your web browser.
+runs a timer for 6 minutes and 23 seconds and then opens the daily bing photo in your web browser.
 
 ## What else can it do?
 
