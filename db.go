@@ -20,7 +20,11 @@ func (t *Timer) run() {
 	fmt.Printf("running timer '%s' %s %s\n", t.Name, t.Countdown.String(), t.Target)
 	tim := time.NewTimer(t.Countdown)
 	<-tim.C
-	err := platformOpen(t.Target)
+	target := t.Target
+	if target == "" {
+		target = fetchDailyPhoto()
+	}
+	err := platformOpen(target)
 	if err != nil {
 		fmt.Printf("failure executing open command: %s\n", err.Error())
 		os.Exit(1)

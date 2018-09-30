@@ -39,13 +39,17 @@ func help() {
 	fmt.Println(" ---------------------------------")
 	fmt.Println("  t name duration [target]")
 	fmt.Println("")
+	fmt.Println(" Start a named timer")
+	fmt.Println(" -------------------")
+	fmt.Println("  t name")
+	fmt.Println("")
 	fmt.Println(" Rename a timer")
 	fmt.Println(" --------------")
 	fmt.Println("  t name = newname")
 	fmt.Println("")
-	fmt.Println(" Start a named timer")
+	fmt.Println(" Delete a named timer")
 	fmt.Println(" -------------------")
-	fmt.Println("  t name \n  t /id")
+	fmt.Println("  t name del")
 	fmt.Println("")
 	fmt.Println(" Start a custom timer")
 	fmt.Println(" --------------------")
@@ -146,82 +150,29 @@ func main() {
 		help()
 		list()
 		os.Exit(0)
+	} else if len(args) > 3 {
+		fmt.Println("too many arguments")
+		os.Exit(1)
 	} else {
-		// Test input for shortcut.
-		if args[0][0] == '/' {
-			// Start a timer via shortcut if it exists.
-			num, err := strconv.Atoi(args[0][1:])
-			if err != nil {
-				fmt.Printf("shortcut malformed: %s\n", err.Error())
-				os.Exit(1)
+		first := args[0]
+		// 1. Is first input a duration?
+		duration, err := time.ParseDuration(first)
+		if err == nil {
+			// Run an unnamed timer.
+			t := Timer{
+				Countdown: duration,
+				Name:      "custom",
+				Target:    "",
 			}
-			num--
-			if num >= len(db.Timers) || num < 0 {
-				fmt.Printf("shortcut %d does not exist\n", num+1)
-			} else {
-				db.Timers[num].run()
-				db.Timers[num].Used++
-				db.save()
-				os.Exit(0)
-			}
+			t.run()
+			os.Exit(0)
 		} else {
-			// Test if there are 3 or more arguments. If so a timer is set / updated.
-			if len(args) >= 3 {
-				name := args[0]
-				if args[1] == "=" {
-					// Rename action.
-					if ok := db.renameTimer(name, args[2]); !ok {
-						fmt.Println("no timer with that name")
-					} else {
-						db.save()
-					}
-					list()
-					os.Exit(1)
-				}
-
-				duration, err := time.ParseDuration(args[1])
-				if err != nil {
-					fmt.Printf("parameter duration is malformed: %s\n", err.Error())
-					os.Exit(1)
-				}
-				target := args[2]
-				valid := validateTarget(target)
-				if !valid {
-					fmt.Println("target is not a valid URI and not a valid file path")
-					os.Exit(1)
-				}
-
-				// Add to DB
-				db.setTimer(name, target, duration)
-				db.save()
-				list()
-			} else {
-				if len(args) == 2 && args[1] == "del" {
-					fmt.Printf("deleting timer '%s'\n", args[0])
-					db.delete(args[0])
-					list()
-					os.Exit(0)
-				} else if len(args) > 1 && len(args) < 3 {
-					fmt.Println("unkown input")
-					os.Exit(1)
-				}
-
-				// Test if argument is a duration.
-				dur, err := time.ParseDuration(args[0])
-				if err == nil {
-					t := Timer{
-						Countdown: dur,
-						Name:      "custom",
-						Target:    fetchDailyPhoto(),
-					}
-					t.run()
-					os.Exit(0)
-				}
-
+			// We assume that first input is a name for now.
+			if len(args) == 1 {
 				// Search if timer with given name exists and if so run it.
 				ran := false
 				for i := 0; i < len(db.Timers); i++ {
-					if db.Timers[i].Name == args[0] {
+					if db.Timers[i].Name == first {
 						db.Timers[i].run()
 						db.Timers[i].Used++
 						db.save()
@@ -232,8 +183,57 @@ func main() {
 					fmt.Printf("timer with name %s does not exist\n", args[0])
 					os.Exit(1)
 				}
-			}
+			} else {
+				second := args[1]
+				duration, err = time.ParseDuration(second)
+				if err != nil {
+					// If not a duration it only can be "del" or "=" command.
+					if second == "del" {
+						fmt.Printf("deleting timer '%s'\n", first)
+						db.delete(first)
+						list()
+						os.Exit(0)
+					} else if second == "=" {
+						if len(args) < 3 {
+							fmt.Println("missing newname parameter")
+							os.Exit(1)
+						}
+						third := args[2]
+						// Rename action.
+						if ok := db.renameTimer(first, third); !ok {
+							fmt.Println("no timer with that name")
+							os.Exit(1)
+						} else {
+							db.save()
+							list()
+							os.Exit(0)
+						}
+					} else {
+						fmt.Printf("unknown command: %s\n", second)
+						os.Exit(1)
+					}
+				} else {
+					// We have a valid duration here.
 
+					// If there is no optional target just use "".
+					target := ""
+					if len(args) == 3 {
+						target = args[2]
+						valid := validateTarget(target)
+						if !valid {
+							fmt.Println("target is not a valid URI and not a valid file path")
+							fmt.Println("using default target..")
+							target = ""
+						}
+					}
+
+					// Add to DB
+					db.setTimer(first, target, duration)
+					db.save()
+					list()
+					os.Exit(0)
+				}
+			}
 		}
 	}
 }
