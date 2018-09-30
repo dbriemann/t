@@ -18,22 +18,24 @@ Run the following commands one after the other:
 t sencha 1m20s ~/.config/t/pics/teapot.jpg
 t pizzo 10m "https://www.google.com/search?q=pizza&tbm=isch"
 t oops 1s "https://google.com"
+t nicepic
 ```
 
 This will result in:
 ```
 Saved timers:
-+----+--------+-----------+---------------------------------+------+
-| ID |  NAME  | COUNTDOWN |               TARGET            | USED |
-+----+--------+-----------+---------------------------------+------+
-|  1 | sencha | 1m20s     | /home/dlb/.con..ics/teapot.jpg  |    0 |
-|  2 | pizzo  | 10m0s     | /home/dlb/.con..pics/pizza.jpg  |    0 |
-|  3 | oops   | 1s        | https://google.com              |    0 |
-+----+--------+-----------+---------------------------------+------+
++----+-----------+-----------+---------------------------------+------+
+| ID |    NAME   | COUNTDOWN |               TARGET            | USED |
++----+-----------+-----------+---------------------------------+------+
+|  1 | sencha    | 1m20s     | /home/dlb/.con..ics/teapot.jpg  |    0 |
+|  2 | pizzo     | 10m0s     | /home/dlb/.con..pics/pizza.jpg  |    0 |
+|  3 | oops      | 1s        | https://google.com              |    0 |
+|  4 | nicepic   | 1s        |                                 |    0 |
++----+-----------+-----------+---------------------------------+------+
 
 ```
 
-Note that you have to specify your own files (pics, sounds..), `t` doesn't include any. You can also specify links. All paths and links must be absolute. And remember to put your links into quotes so your shell doesn't do crazy stuff.
+Note that you have to specify your own files (pics, sounds..), `t` doesn't include any. You can also specify links. All paths and links must be absolute. And remember to put your links into quotes so your shell doesn't do crazy stuff. If you omit a target `t` will automatically open a _Bing photo of the day_ in your browser, try running `t nicepic`.
 
 Now we made some mistakes. Let's correct them. Renaming pizzo to pizza is easy. Just do:
 
