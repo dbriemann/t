@@ -15,9 +15,6 @@ import (
 	"github.com/shibukawa/configdir"
 )
 
-// TODO - restructure command switch case code to be prettier.
-// TODO - use daily photo if no target is provided.
-
 const (
 	configFile = "db.json"
 )
