@@ -1,0 +1,25 @@
+# github.com/mattn/go-runewidth v0.0.5
+github.com/mattn/go-runewidth
+# github.com/moul/http2curl v1.0.0
+github.com/moul/http2curl
+# github.com/olekukonko/tablewriter v0.0.1
+github.com/olekukonko/tablewriter
+# github.com/parnurzeal/gorequest v0.2.16
+github.com/parnurzeal/gorequest
+# github.com/pkg/errors v0.8.1
+github.com/pkg/errors
+# github.com/shibukawa/configdir v0.0.0-20170330084843-e180dbdc8da0
+github.com/shibukawa/configdir
+# golang.org/x/net v0.0.0-20191021144547-ec77196f6094
+golang.org/x/net/publicsuffix
+# golang.org/x/text v0.3.0
+golang.org/x/text/internal/colltab
+golang.org/x/text/internal/tag
+golang.org/x/text/language
+golang.org/x/text/secure/bidirule
+golang.org/x/text/transform
+golang.org/x/text/unicode/bidi
+golang.org/x/text/unicode/cldr
+golang.org/x/text/unicode/norm
+# moul.io/http2curl v1.0.0
+moul.io/http2curl
