@@ -1,3 +1,5 @@
+# github.com/elazarl/goproxy v0.0.0-20221015165544-a0805db90819
+## explicit
 # github.com/mattn/go-runewidth v0.0.7
 github.com/mattn/go-runewidth
 # github.com/olekukonko/tablewriter v0.0.4
@@ -12,7 +14,9 @@ github.com/pkg/errors
 # github.com/shibukawa/configdir v0.0.0-20170330084843-e180dbdc8da0
 ## explicit
 github.com/shibukawa/configdir
-# golang.org/x/net v0.0.0-20200320181208-1c781a10960a
+# github.com/smartystreets/goconvey v1.7.2
+## explicit
+# golang.org/x/net v0.7.0
 ## explicit
 golang.org/x/net/publicsuffix
 # moul.io/http2curl v1.0.0
